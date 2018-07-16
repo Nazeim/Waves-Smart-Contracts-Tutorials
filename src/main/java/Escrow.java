@@ -29,10 +29,9 @@ public class Escrow {
         PrivateKeyAccount escrow = PrivateKeyAccount.fromSeed(EscrowSeed, 0, Account.TESTNET);
         String escrowAddress = escrow.getAddress();
         System.out.print("Escrow Address: "  + escrowAddress + "" + "\n");
-
-        // String PkNewAccount =Base58.encode(newAccount.getPublicKey());
-       Transaction tx2 = Transaction.makeTransferTx(buyer, escrowAddress, 100000000,"WAVES", FEE * 4 ,"WAVES", "Sending Waves");
-       node.send(tx2);
+        
+        Transaction tx2 = Transaction.makeTransferTx(buyer, escrowAddress, 100000000,"WAVES", FEE * 4 ,"WAVES", "Sending Waves");
+        node.send(tx2);
 
         try {
             Thread.sleep(10000);
