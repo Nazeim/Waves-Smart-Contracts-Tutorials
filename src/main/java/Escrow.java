@@ -10,8 +10,6 @@ public class Escrow {
         // Set testnet node
         Node node = new Node("https://testnode2.wavesnodes.com");
 
-        //final long SCRIPT_FEE = 1000000;
-
         //Set seeds for 2 accounts
         //String BuyerSeed = "house horse basket hot ball honey health myself silly december endless rent faculty report beyond";
 
@@ -29,7 +27,7 @@ public class Escrow {
         PrivateKeyAccount escrow = PrivateKeyAccount.fromSeed(EscrowSeed, 0, Account.TESTNET);
         String escrowAddress = escrow.getAddress();
         System.out.print("Escrow Address: "  + escrowAddress + "" + "\n");
-        
+
         Transaction tx2 = Transaction.makeTransferTx(buyer, escrowAddress, 100000000,"WAVES", FEE * 4 ,"WAVES", "Sending Waves");
         node.send(tx2);
 
