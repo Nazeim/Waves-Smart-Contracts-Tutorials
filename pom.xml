@@ -8,6 +8,12 @@
     <artifactId>WavesSmartContractExample</artifactId>
     <version>0.6</version>
 
-
+   <dependencies>
+    <dependency>
+        <groupId>com.wavesplatform</groupId>
+        <artifactId>wavesj</artifactId>
+        <version>0.8</version>
+    </dependency>
+   </dependencies>
 
 </project>

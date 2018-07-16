@@ -7,7 +7,7 @@ import java.net.URISyntaxException;
 public class MakeScriptExample {
     public static void main(String[] args) throws IOException, URISyntaxException {
         ///
-        final long FEE = 100000;
+        final long FEE = 1000000;
         //final long SCRIPT_FEE = 1000000;
         String AliceSeed = "house horse basket hot ball honey health myself silly december endless rent faculty report beyond";
         String BobSeed = "lazy health fix lens salad dwarf myself breeze december silly rent endless report faculty beyond";
@@ -16,6 +16,8 @@ public class MakeScriptExample {
         PrivateKeyAccount alice = PrivateKeyAccount.fromSeed(AliceSeed, 0, Account.TESTNET);
         PrivateKeyAccount bob = PrivateKeyAccount.fromSeed(BobSeed,0, Account.TESTNET);
         PrivateKeyAccount cooper= PrivateKeyAccount.fromSeed(CooperSeed,0, Account.TESTNET);
+
+
 
         String aliceAddress = alice.getAddress();
         String bobAddress = bob.getAddress();
@@ -43,8 +45,8 @@ public class MakeScriptExample {
         String aliceSig =alice.sign(tx1);
         String bobSig = bob.sign(tx1);
 
-        tx1= tx1.setProof(0,aliceSig);
-        tx1 = tx1.setProof(1, bobSig);
+        tx1= tx1.withProof(0,aliceSig);
+        tx1 = tx1.withProof(1, bobSig);
 
         String txid = node.send(tx1);
         System.out.println(txid);
