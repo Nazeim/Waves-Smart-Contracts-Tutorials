@@ -63,6 +63,7 @@ public class Escrow {
         Transaction stx = Transaction.makeScriptTx(escrow,bytecode, Account.TESTNET, 100000);
         node.send(stx);
 
+        // time required for the transaction to be included into the blockchain
         try {
             Thread.sleep(10000);
         } catch (InterruptedException e) {
