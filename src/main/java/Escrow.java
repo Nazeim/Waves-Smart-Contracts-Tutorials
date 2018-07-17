@@ -82,8 +82,8 @@ public class Escrow {
 
         //print all addresses
         System.out.print("Buyer Address: "  + buyerAddress + "\n");
-        System.out.print("Seller Address: " + sellerAddress);
-        System.out.print("Escrow Address: " + newAccountAddress);
+        System.out.print("Seller Address: " + sellerAddress + "\n");
+        System.out.print("newAccount Address: " + newAccountAddress);
 
 
 
