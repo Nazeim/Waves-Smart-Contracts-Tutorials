@@ -5,30 +5,30 @@ import java.net.URISyntaxException;
 
 public class Escrow {
     public static void main(String[] args) throws IOException, URISyntaxException {
-        ///
+
+        //fee
         final long FEE = 1000000;
+
         // Set testnet node
         Node node = new Node("https://testnode2.wavesnodes.com");
 
         //Set seeds for 2 accounts
-        //String BuyerSeed = "house horse basket hot ball honey health myself silly december endless rent faculty report beyond";
-
         String SellerSeed = "lazy health fix lens salad dwarf myself breeze december silly rent endless report faculty beyond";
 
-        //String EscrowSeed = "basket health fix lens salad dwarf myself breeze december silly rent endless report faculty beyond";
+        String EscrowSeed = "basket health fix lens salad dwarf myself breeze december silly rent endless report faculty beyond";
 
         //Get Private keys
         PrivateKeyAccount buyer = PrivateKeyAccount.fromPrivateKey("EW8VJkEfqr1nW835vKWBqWGeAZdLm8hN7MWf9ZePKr1y", Account.TESTNET);
         PrivateKeyAccount seller = PrivateKeyAccount.fromSeed(SellerSeed,0, Account.TESTNET);
-        //PrivateKeyAccount escrow= PrivateKeyAccount.fromSeed(EscrowSeed,0, Account.TESTNET);
+        PrivateKeyAccount escrow= PrivateKeyAccount.fromSeed(EscrowSeed,0, Account.TESTNET);
 
         //Generating random account
-        String EscrowSeed = PrivateKeyAccount.generateSeed();
-        PrivateKeyAccount escrow = PrivateKeyAccount.fromSeed(EscrowSeed, 0, Account.TESTNET);
-        String escrowAddress = escrow.getAddress();
-        System.out.print("Escrow Address: "  + escrowAddress + "" + "\n");
+        String newAccountSeed = PrivateKeyAccount.generateSeed();
+        PrivateKeyAccount newAccount = PrivateKeyAccount.fromSeed(newAccountSeed, 0, Account.TESTNET);
+        String newAccountAddress = newAccount.getAddress();
+        System.out.print("Escrow Address: "  + newAccountAddress + "" + "\n");
 
-        Transaction tx2 = Transaction.makeTransferTx(buyer, escrowAddress, 100000000,"WAVES", FEE * 4 ,"WAVES", "Sending Waves");
+        Transaction tx2 = Transaction.makeTransferTx(buyer, newAccountAddress, 100000000,"WAVES", FEE * 4 ,"WAVES", "Sending Waves");
         node.send(tx2);
 
         try {
@@ -57,7 +57,7 @@ public class Escrow {
         System.out.println(bytecode);
 
         //newAccount Make Script transaction and send it to the network
-        Transaction stx = Transaction.makeScriptTx(escrow,bytecode, Account.TESTNET, 100000);
+        Transaction stx = Transaction.makeScriptTx(newAccount,bytecode, Account.TESTNET, 100000);
         node.send(stx);
 
         // time required for the transaction to be included into the blockchain
@@ -68,7 +68,7 @@ public class Escrow {
         }
 
         // Buyer make a transfer
-        Transaction tx1 = Transaction.makeTransferTx(escrow, sellerAddress, 1,"WAVES", FEE * 4 ,"WAVES", "Sending currency");
+        Transaction tx1 = Transaction.makeTransferTx(newAccount, sellerAddress, 1,"WAVES", FEE * 4 ,"WAVES", "Sending currency");
 
         //Buyer and Escrow sign the deal with proofs
         String buyerSig =  buyer.sign(tx1);
@@ -83,7 +83,7 @@ public class Escrow {
         //print all addresses
         System.out.print("Buyer Address: "  + buyerAddress + "\n");
         System.out.print("Seller Address: " + sellerAddress);
-        System.out.print("Escrow Address: " + escrowAddress);
+        System.out.print("Escrow Address: " + newAccountAddress);
 
 
 
